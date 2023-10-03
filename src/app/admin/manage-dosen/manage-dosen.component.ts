@@ -8,7 +8,7 @@ import { ManageDosenDetailComponent } from '../manage-dosen-detail/manage-dosen-
   styleUrls: ['./manage-dosen.component.scss']
 })
 export class ManageDosenComponent implements OnInit {
-  title: string;
+  title!: string;
   dosens: string[] = [];
   codedosens: string[] = [];
   nips: string[] = [];

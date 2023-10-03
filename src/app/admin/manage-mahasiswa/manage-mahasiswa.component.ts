@@ -8,10 +8,10 @@ import { ManageMahasiswaDetailComponent } from '../manage-mahasiswa-detail/manag
   styleUrls: ['./manage-mahasiswa.component.scss']
 })
 export class ManageMahasiswaComponent implements OnInit {
-  title:string;
+  title!: string;
   mhss: string[] = [];
   nims: string[] = [];
-  
+
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {

@@ -8,7 +8,7 @@ import { ManageMatakuliahDetailComponent } from '../manage-matakuliah-detail/man
   styleUrls: ['./manage-mata-kuliah.component.scss'],
 })
 export class ManageMataKuliahComponent implements OnInit {
-  title: string;
+  title!: string;
   matkuls: string[] = [];
   codematkuls: string[] = [];
 

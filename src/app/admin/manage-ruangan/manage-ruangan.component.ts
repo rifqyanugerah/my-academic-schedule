@@ -8,7 +8,7 @@ import { ManageRuanganDetailComponent } from '../manage-ruangan-detail/manage-ru
   styleUrls: ['./manage-ruangan.component.scss']
 })
 export class ManageRuanganComponent implements OnInit {
-  title:string;
+  title!: string;
   ruangans: string[] = [];
   coderuangans: string[] = [];
 
