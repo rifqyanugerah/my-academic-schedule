@@ -1,0 +1,17 @@
+<h3 mat-dialog-title>
+  Detail Ruangan
+</h3>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Kode Ruangan</mat-label>
+    <input matInput [(ngModel)]="data.author">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Nama Ruangan</mat-label>
+    <input matInput [(ngModel)]="data.title" >
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Batal</button>
+  <button mat-flat-button (click)="saveData()">Simpan</button>
+</div>

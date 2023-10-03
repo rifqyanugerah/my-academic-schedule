@@ -1,0 +1,46 @@
+<ng-container>
+  <!-- toolbar -->
+  <mat-toolbar class="example-header">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Akademik Administrator</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="warn" routerLink="/login">LOG OUT</button>
+    <!-- <button mat-button>DOWNLOAD</button> -->
+  </mat-toolbar>
+  <!-- end toolbar -->
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" [position]="'start'" opened class="sidenav-left" [fixedInViewport]="true"
+      [fixedTopGap]="60" [fixedBottomGap]="0">
+      <mat-nav-list>
+        <ng-container *ngFor="let item of menu">
+          <ng-container *ngIf="item.group">
+            <!-- Group Name -->
+            <h3 matSubheader>{{item.group}}</h3>
+            <mat-divider></mat-divider>
+          </ng-container>
+          <div *ngIf="item.items">
+            <!-- List of items in the group -->
+            <mat-list-item *ngFor="let c of item.items" routerLink="{{c.url}}">
+              <mat-icon matListIcon>{{c.icon}}</mat-icon>
+              <span matLine>{{c.name}}</span>
+            </mat-list-item>
+          </div>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav #sidenav mode="side" [position]="'end'" class="example-sidenav" [fixedInViewport]="true"
+      [fixedTopGap]="60" [fixedBottomGap]="0">
+    </mat-sidenav>
+    <!-- sidenav content -->
+    <mat-sidenav-content style="padding: 20px; background-color: #ccc;">
+      <!-- halaman-halaman tampil disini -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    <!-- end sidenav content -->
+  </mat-sidenav-container>
+</ng-container>
