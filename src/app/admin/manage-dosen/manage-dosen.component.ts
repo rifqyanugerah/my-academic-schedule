@@ -11,7 +11,7 @@ export class ManageDosenComponent implements OnInit {
   title!: string;
   dosens: string[] = [];
   codedosens: string[] = [];
-  nips: string[] = [];
+  nips: (number | null)[] = [];
 
   constructor(private dialog: MatDialog) {}
 
@@ -33,11 +33,13 @@ export class ManageDosenComponent implements OnInit {
         if (idx === -1) {
           this.dosens.push(result.title);
           this.codedosens.push(result.author);
-          this.nips.push(result.nip);
+          const nipValue = parseInt(result.nip, 10);
+          this.nips.push(isNaN(nipValue) ? null : nipValue);
         } else {
           this.dosens[idx] = result.title;
           this.codedosens[idx] = result.author;
-          this.nips[idx] = result.nip;
+          const nipValue = parseInt(result.nip, 10);
+          this.nips[idx] = isNaN(nipValue) ? null : nipValue;
         }
       }
     });
@@ -52,7 +54,7 @@ export class ManageDosenComponent implements OnInit {
   }
 
   getNips() {
-    this.nips = ['1234567890', '0987654321'];
+    this.nips = [1234567890, 9876543210];
   }
 
   deleteDosen(idx: number) {

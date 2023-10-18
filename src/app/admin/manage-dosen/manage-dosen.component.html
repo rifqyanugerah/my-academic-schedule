@@ -1,32 +1,33 @@
 <mat-card>
   <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-title>{{ title }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-      <div class="uk-flex">
-          <span class="uk-width-expand"></span>
-          <button mat-flat-button color="accent" (click)="manageDosenDetail('', -1)">Tambah Dosen</button>
-      </div>
-      <table class="uk-table uk-table-middle uk-table-divider">
-          <thead>
-              <th>No</th>
-              <th>Kode Dosen</th>
-              <th>Nama Dosen</th>
-              <th>NIP</th>
-              <th align="right">#</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dosen of dosens; let codedosen of codedosens; let nip of nips let idx = index">
-              <td>{{ idx + 1 }}</td>
-              <td>{{ codedosens[idx] }}</td>
-              <td>{{ dosens[idx] }}</td>
-              <td>{{ nip }}</td>
-              <td align="right">
-                <button mat-button color="primary" (click)="manageDosenDetail(dosen, idx)">Edit</button>
-                <button mat-button color="warn" (click)="deleteDosen(idx)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-      </table>
+    <div class="uk-flex">
+      <span class="uk-width-expand"></span>
+      <button mat-flat-button color="accent" (click)="manageDosenDetail('', -1)">Tambah Dosen</button>
+    </div>
+    <table class="uk-table uk-table-middle uk-table-divider">
+      <thead>
+        <th>No</th>
+        <th>Kode Dosen</th>
+        <th>Nama Dosen</th>
+        <th>NIP</th>
+        <th align="right">#</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dosen of dosens; let idx = index">
+          <td>{{ idx + 1 }}</td>
+          <td>{{ codedosens[idx] }}</td>
+          <td>{{ dosens[idx] }}</td>
+          <td>{{ nips[idx] }}</td>
+          
+          <td align="right">
+            <button mat-button color="primary" (click)="manageDosenDetail(dosen, idx)">Edit</button>
+            <button mat-button color="warn" (click)="deleteDosen(idx)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </mat-card-content>
 </mat-card>

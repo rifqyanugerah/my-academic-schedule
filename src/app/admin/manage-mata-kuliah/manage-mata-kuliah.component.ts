@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageMatakuliahDetailComponent } from '../manage-matakuliah-detail/manage-matakuliah-detail.component';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-manage-mata-kuliah',
@@ -12,7 +13,7 @@ export class ManageMataKuliahComponent implements OnInit {
   matkuls: string[] = [];
   codematkuls: string[] = [];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public api:ApiService) {}
 
   ngOnInit(): void {
     this.title = 'Mata Kuliah';
