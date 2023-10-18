@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialDesign } from './material-design/material';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { LoginComponent } from './auth/login/login.component';
@@ -24,6 +25,7 @@ import { ForgotComponent } from './auth/forgot/forgot.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialDesign,
+    HttpClientModule,
     ImageCropperModule,
   ],
   providers: [],
