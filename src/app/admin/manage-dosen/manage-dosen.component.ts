@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageDosenDetailComponent } from '../manage-dosen-detail/manage-dosen-detail.component';
+import { ManageDosenService } from './manage-dosen.service';
 
 @Component({
   selector: 'app-manage-dosen',
@@ -8,61 +9,45 @@ import { ManageDosenDetailComponent } from '../manage-dosen-detail/manage-dosen-
   styleUrls: ['./manage-dosen.component.scss']
 })
 export class ManageDosenComponent implements OnInit {
-  title!: string;
-  dosens: string[] = [];
-  codedosens: string[] = [];
-  nips: (number | null)[] = [];
+  dataDosen: any;
+  title = 'Data Dosen';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private managedosenService: ManageDosenService) {}
 
-  ngOnInit(): void {
-    this.title = 'Dosen';
-    this.getDosens();
-    this.getCodedosens();
-    this.getNips();
-  }
-
-  manageDosenDetail(dosen: string, idx: number) {
+  manageDosenDetail(data: any, idx: number) {
     const dialogRef = this.dialog.open(ManageDosenDetailComponent, {
       width: '400px',
-      data: { title: dosen, author: this.codedosens[idx], nip: this.nips[idx] },
+      data: data
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
         if (idx === -1) {
-          this.dosens.push(result.title);
-          this.codedosens.push(result.author);
-          const nipValue = parseInt(result.nip, 10);
-          this.nips.push(isNaN(nipValue) ? null : nipValue);
+          this.dataDosen.push(res);
         } else {
-          this.dosens[idx] = result.title;
-          this.codedosens[idx] = result.author;
-          const nipValue = parseInt(result.nip, 10);
-          this.nips[idx] = isNaN(nipValue) ? null : nipValue;
+          this.dataDosen[idx] = res;
         }
       }
     });
   }
 
-  getDosens() {
-    this.dosens = ['Gandalf', 'Riska'];
+  ngOnInit(): void {
+    this.getDosen();
   }
 
-  getCodedosens() {
-    this.codedosens = ['GDF', 'RSK'];
-  }
-
-  getNips() {
-    this.nips = [1234567890, 9876543210];
+  getDosen() {
+    this.managedosenService.getDosen().subscribe((res: any) => {
+      this.dataDosen = res;
+    });
   }
 
   deleteDosen(idx: number) {
-    const conf = confirm('Hapus dosen?');
+    const conf = confirm('Hapus data dosen?');
     if (conf) {
-      this.dosens.splice(idx, 1);
-      this.codedosens.splice(idx, 1);
-      this.nips.splice(idx, 1);
+      this.managedosenService.deleteDosen(this.dataDosen[idx].id).subscribe((response: any) => {
+        console.log('Response from deleteDosen:', response);
+        this.dataDosen.splice(idx, 1);
+      });
     }
   }
 }
