@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageMahasiswaDetailComponent } from '../manage-mahasiswa-detail/manage-mahasiswa-detail.component';
+import { ManageMahasiswaService } from './manage-mahasiswa.service';
 
 @Component({
   selector: 'app-manage-mahasiswa',
@@ -8,53 +9,45 @@ import { ManageMahasiswaDetailComponent } from '../manage-mahasiswa-detail/manag
   styleUrls: ['./manage-mahasiswa.component.scss']
 })
 export class ManageMahasiswaComponent implements OnInit {
-  title!: string;
-  mhss: string[] = [];
-  nims: string[] = [];
+  dataMahasiswa: any;
+  title = 'Data Mahasiswa';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private managemahasiswaService: ManageMahasiswaService) {}
 
-  ngOnInit(): void {
-    this.title='Mahasiswa';
-    this.getMhss();
-    this.getNims();
-
-  }
-
-  manageMahasiswaDetail(mhs: string, idx: number) {
+  manageMahasiswaDetail(data: any, idx: number) {
     const dialogRef = this.dialog.open(ManageMahasiswaDetailComponent, {
       width: '400px',
-      data: { title: mhs, author: this.nims[idx] },
+      data: data
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
         if (idx === -1) {
-          this.mhss.push(result.title);
-          this.nims.push(result.author);
+          this.dataMahasiswa.push(res);
         } else {
-          this.mhss[idx] = result.title;
-          this.nims[idx] = result.author;
+          this.dataMahasiswa[idx] = res;
         }
       }
     });
   }
 
-  getMhss()
-  {
-    this.mhss = ['Randal', 'Cantika'];
+  ngOnInit(): void {
+    this.getMahasiswa();
   }
 
-  getNims()
-  {
-    this.nims = ['0987654321', '1234567890'];
+  getMahasiswa() {
+    this.managemahasiswaService.getMahasiswa().subscribe((res: any) => {
+      this.dataMahasiswa = res;
+    });
   }
 
   deleteMahasiswa(idx: number) {
-    const conf = confirm('Hapus mahasiswa?');
+    const conf = confirm('Hapus data mahasiswa?');
     if (conf) {
-      this.mhss.splice(idx, 1);
-      this.nims.splice(idx, 1);
+      this.managemahasiswaService.deleteMahasiswa(this.dataMahasiswa[idx].id).subscribe((response: any) => {
+        console.log('Response from deleteMahasiswa:', response);
+        this.dataMahasiswa.splice(idx, 1);
+      });
     }
   }
 }
