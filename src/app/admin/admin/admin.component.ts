@@ -17,11 +17,6 @@ export class AdminComponent implements OnInit {
       group: 'User Info',
       items: [
         {
-          name: 'Foto Profil',
-          icon: 'account_circle',
-          url: '/admin/foto-profil'
-        },
-        {
           name: 'NIM/NIP',
           icon: 'credit_card',
           url: '/admin/nim'
